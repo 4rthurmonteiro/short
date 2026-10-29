@@ -112,3 +112,9 @@ app.*.map.json
 
 # Generated l10n files
 lib/l10n/gen/
+
+# Rules tests
+rules_test/node_modules/
+
+# Firebase deploy cache
+.firebase/

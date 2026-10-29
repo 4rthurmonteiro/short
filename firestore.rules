@@ -1,0 +1,17 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /links/{code} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if code.matches('^[0-9A-Za-z]{7}$')
+        && request.resource.data.keys().hasOnly(['url', 'createdAt'])
+        && request.resource.data.keys().hasAll(['url', 'createdAt'])
+        && request.resource.data.url is string
+        && request.resource.data.url.size() <= 2048
+        && request.resource.data.url.matches('^https?://[^\\s]+$')
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+  }
+}

@@ -1,8 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firestore_link_api/firestore_link_api.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:link_repository/link_repository.dart';
+import 'package:short/firebase_options.dart';
+import 'package:short/url_redirector/url_redirector.dart';
 
 class AppBlocObserver extends BlocObserver {
   const new();
@@ -27,7 +34,21 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   Bloc.observer = const AppBlocObserver();
 
-  // Add cross-flavor configuration here
+  usePathUrlStrategy();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(await builder());
+  runApp(
+    MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<LinkRepository>(
+          create: (_) => LinkRepository(
+            api: FirestoreLinkApi(firestore: FirebaseFirestore.instance),
+          ),
+        ),
+        RepositoryProvider<UrlRedirector>(create: (_) => UrlRedirector()),
+      ],
+      child: await builder(),
+    ),
+  );
 }
