@@ -9,6 +9,8 @@ environment:
   flutter: ^3.47.0
 
 dependencies:
+  firestore_link_api:
+    path: ../firestore_link_api
   flutter:
     sdk: flutter
 
