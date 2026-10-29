@@ -3,6 +3,10 @@ description: A Very Good Project created by Very Good CLI.
 version: 1.0.0+1
 publish_to: none
 
+workspace:
+  - packages/firestore_link_api
+  - packages/link_repository
+
 environment:
   sdk: ^3.13.0
   flutter: ^3.47.0
