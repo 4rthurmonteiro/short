@@ -21,8 +21,7 @@ void main() {
 
     ShortenerCubit buildCubit() => ShortenerCubit(
       linkRepository: linkRepository,
-      origin: origin,
-      ownHost: ownHost,
+      baseUri: Uri.parse('$origin/'),
     );
 
     test('initial state is $ShortenerInitial', () {

@@ -5,25 +5,21 @@ import 'package:link_repository/link_repository.dart';
 part 'shortener_state.dart';
 
 class ShortenerCubit extends Cubit<ShortenerState> {
-  /// `origin` is prepended to the code to build the short URL, and links
-  /// pointing at `ownHost` are rejected.
-  new({
-    required this._linkRepository,
-    required this._origin,
-    required this._ownHost,
-  }) : super(const ShortenerInitial());
+  /// `baseUri` is the app's own URL: its origin is prepended to the code to
+  /// build the short URL, and links pointing at its host are rejected.
+  new({required this._linkRepository, required this._baseUri})
+    : super(const ShortenerInitial());
 
   final LinkRepository _linkRepository;
-  final String _origin;
-  final String _ownHost;
+  final Uri _baseUri;
 
   /// Shortens [input]. Does nothing while a request is in progress.
   Future<void> submit(String input) async {
     if (state is ShortenerInProgress) return;
     emit(const ShortenerInProgress());
     try {
-      final code = await _linkRepository.shorten(input, ownHost: _ownHost);
-      emit(ShortenerSuccess('$_origin/$code'));
+      final code = await _linkRepository.shorten(input, ownHost: _baseUri.host);
+      emit(ShortenerSuccess('${_baseUri.origin}/$code'));
     } on InvalidUrlException catch (exception) {
       emit(ShortenerFailure(ShortenerInvalidUrl(exception.reason)));
     } on LinkCreationException {

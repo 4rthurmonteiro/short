@@ -1,15 +1,32 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:link_repository/link_repository.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:short/app/app.dart';
 import 'package:short/redirect/redirect.dart';
 import 'package:short/shortener/shortener.dart';
 
+class _MockLinkRepository extends Mock implements LinkRepository;
+
 void main() {
   group('createRouter', () {
+    late LinkRepository linkRepository;
+
+    setUp(() {
+      linkRepository = _MockLinkRepository();
+      when(() => linkRepository.resolve(any())).thenAnswer((_) async => null);
+    });
+
     Future<GoRouter> pumpRouter(WidgetTester tester, String location) async {
       final router = createRouter(initialLocation: location);
       addTearDown(router.dispose);
-      await tester.pumpWidget(App(router: router));
+      await tester.pumpWidget(
+        RepositoryProvider.value(
+          value: linkRepository,
+          child: App(router: router),
+        ),
+      );
       await tester.pumpAndSettle();
       return router;
     }

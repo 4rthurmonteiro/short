@@ -9,7 +9,7 @@ import 'package:short/shortener/shortener.dart';
 
 class ShortenerPage extends StatelessWidget {
   /// [baseUri] defaults to [Uri.base]; tests pass an http URI because
-  /// [Uri.origin] throws for `file:` URIs.
+  /// [Uri.origin] throws for the `file:` URI used under `flutter test`.
   const new({this.baseUri, super.key});
 
   final Uri? baseUri;
@@ -17,14 +17,10 @@ class ShortenerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) {
-        final base = baseUri ?? Uri.base;
-        return ShortenerCubit(
-          linkRepository: context.read<LinkRepository>(),
-          origin: base.origin,
-          ownHost: base.host,
-        );
-      },
+      create: (context) => ShortenerCubit(
+        linkRepository: context.read<LinkRepository>(),
+        baseUri: baseUri ?? Uri.base,
+      ),
       child: const ShortenerView(),
     );
   }
