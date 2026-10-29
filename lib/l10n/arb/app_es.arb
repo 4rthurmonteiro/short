@@ -3,5 +3,65 @@
     "appTitle": "Short",
     "@appTitle": {
         "description": "Título de la aplicación"
+    },
+    "shortenerUrlLabel": "URL larga",
+    "@shortenerUrlLabel": {
+        "description": "Label of the URL text field"
+    },
+    "shortenerSubmitButton": "Acortar",
+    "@shortenerSubmitButton": {
+        "description": "Button that creates a short link"
+    },
+    "shortenerCopyButton": "Copiar",
+    "@shortenerCopyButton": {
+        "description": "Button that copies the short link"
+    },
+    "shortenerCopiedMessage": "¡Copiado!",
+    "@shortenerCopiedMessage": {
+        "description": "SnackBar shown after copying"
+    },
+    "shortenerCopyFailedMessage": "No se pudo copiar. Selecciona el enlace y cópialo manualmente.",
+    "@shortenerCopyFailedMessage": {
+        "description": "SnackBar shown when copying fails"
+    },
+    "shortenerErrorEmpty": "Ingresa una URL",
+    "@shortenerErrorEmpty": {
+        "description": "Error when the input is empty"
+    },
+    "shortenerErrorUnsupportedScheme": "Solo se admiten enlaces http y https",
+    "@shortenerErrorUnsupportedScheme": {
+        "description": "Error for non-http(s) URLs"
+    },
+    "shortenerErrorMalformed": "Eso no parece una URL válida",
+    "@shortenerErrorMalformed": {
+        "description": "Error for malformed URLs"
+    },
+    "shortenerErrorTooLong": "Esa URL es demasiado larga",
+    "@shortenerErrorTooLong": {
+        "description": "Error for URLs over 2048 characters"
+    },
+    "shortenerErrorSelfLink": "Eso ya es un enlace corto",
+    "@shortenerErrorSelfLink": {
+        "description": "Error for URLs on the app's own host"
+    },
+    "shortenerErrorNetwork": "No se pudo crear el enlace. Inténtalo de nuevo.",
+    "@shortenerErrorNetwork": {
+        "description": "Error when the write fails"
+    },
+    "redirectNotFoundTitle": "Enlace no encontrado",
+    "@redirectNotFoundTitle": {
+        "description": "Shown when a short link doesn't exist"
+    },
+    "redirectCreateLinkButton": "Crear un enlace corto",
+    "@redirectCreateLinkButton": {
+        "description": "Button that goes to the shortener"
+    },
+    "redirectFailureTitle": "No se pudo cargar el enlace",
+    "@redirectFailureTitle": {
+        "description": "Shown when reading a link fails"
+    },
+    "redirectRetryButton": "Reintentar",
+    "@redirectRetryButton": {
+        "description": "Button that retries loading a link"
     }
 }
