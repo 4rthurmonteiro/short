@@ -29,7 +29,7 @@ dependencies:
   intl: ^0.20.2
   link_repository:
     path: packages/link_repository
-  material_ui: ^1.1.1
+  material_ui: ^1.11.0
   web: ^1.1.2
 
 dev_dependencies:
